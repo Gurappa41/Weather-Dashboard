@@ -1,0 +1,339 @@
+<!--{% load static %}-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Document</title>-->
+<!--    <style>-->
+<!--        body{-->
+<!--            margin: 0;-->
+<!--            height:100vh;-->
+<!--            display: flex;-->
+<!--            background-image:url("{% static 'images/back_clouds.jpg' %}") ;-->
+<!--            background-size: cover;-->
+<!--            background-repeat: no-repeat;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            box-sizing: border-box;-->
+<!--        }-->
+<!--        #holder{-->
+<!--            display:flex;-->
+<!--            flex-direction: row;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            border-radius: 15px;-->
+<!--            height:600px;-->
+<!--            width: 600px;-->
+<!--            background-color: rgba(0, 0, 0, 0.275);-->
+<!--        }-->
+<!--        #card1, #card2{-->
+<!--            border-radius: 5px;-->
+<!--            display:flex;-->
+<!--            flex-direction: column;-->
+<!--            justify-content:space-around;-->
+<!--            align-items: center;-->
+<!--            padding:15px;-->
+<!--            margin:5px;-->
+<!--            height:40%;-->
+<!--            width:40%;-->
+<!--            background-color: rgba(239, 218, 218, 0.563);-->
+<!--            box-sizing: border-box;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div id="holder" >-->
+<!--        <div id="card1">-->
+<!--          <span style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;font-size: 20px;color: black;">Current Weather Real-time weather updates for your selected city.</span>-->
+<!--          <a href="/forcast/"><button style="background-color: red;color:black;height: 30px;border-radius: 5px;cursor: pointer;">Get Whether Forcast</button></a>-->
+<!--        </div>-->
+<!--        <div id="card2">-->
+<!--          <span style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;font-size: 20px;color: black;">Weather Forecast Accurate forecasts to help you plan ahead.</span>-->
+<!--         <a href="/climate/"><button style="background-color: red;color:black;height: 30px;border-radius: 5px;cursor: pointer;">Get Climate</button></a>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</body>-->
+<!--</html>-->
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+    <title>Weather App</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family:
+                "Segoe UI",
+                Arial,
+                sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+            background-image:
+                linear-gradient(
+                    rgba(15, 39, 71, 0.55),
+                    rgba(30, 91, 140, 0.55)
+                ),
+                url("{% static 'images/back_clouds.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        #holder {
+            width: 850px;
+            min-height: 520px;
+            padding: 45px;
+            border-radius: 28px;
+            background:
+                rgba(255, 255, 255, 0.16);
+            border:
+                1px solid rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.25);
+            color: white;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .weather-logo {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background:
+                rgba(255, 255, 255, 0.2);
+            border:
+                1px solid rgba(255,255,255,0.4);
+            font-size: 38px;
+            box-shadow:
+                0 8px 20px rgba(0,0,0,0.15);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 34px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+        .header p {
+            margin: 10px auto 0;
+            max-width: 500px;
+            font-size: 15px;
+            color: #e0f2fe;
+            line-height: 1.6;
+        }
+        .cards {
+            display: grid;
+            grid-template-columns:
+                1fr 1fr;
+            gap: 25px;
+        }
+        .card {
+            min-height: 270px;
+            padding: 30px 25px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            justify-content: space-between;
+            background:
+                rgba(255,255,255,0.88);
+            color: #172033;
+            border:
+                1px solid rgba(255,255,255,0.7);
+            box-shadow:
+                0 12px 30px rgba(0,0,0,0.15);
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform:
+                translateY(-8px);
+            box-shadow:
+                0 20px 40px rgba(0,0,0,0.22);
+        }
+        .card-icon {
+            width: 75px;
+            height: 75px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        .current-icon {
+            background:
+                linear-gradient(
+                    135deg,
+                    #dbeafe,
+                    #bfdbfe
+                );
+        }
+        .forecast-icon {
+            background:
+                linear-gradient(
+                    135deg,
+                    #cffafe,
+                    #bae6fd
+                );
+        }
+        .card h2 {
+            margin: 0;
+            font-size: 22px;
+            color: #172554;
+            font-weight: 600;
+        }
+        .card p {
+            margin: 10px 0 20px;
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.6;
+            max-width: 280px;
+        }
+        .button {
+            width: 100%;
+            max-width: 220px;
+            padding: 13px 20px;
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.25s;
+            box-shadow:
+                0 5px 15px rgba(0,0,0,0.12);
+        }
+        .weather-button {
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #3b82f6
+                );
+        }
+        .forecast-button {
+            background:
+                linear-gradient(
+                    135deg,
+                    #0891b2,
+                    #06b6d4
+                );
+        }
+        .button:hover {
+            transform:
+                translateY(-2px);
+            box-shadow:
+                0 8px 20px rgba(0,0,0,0.18);
+        }
+        .footer {
+            margin-top: 35px;
+            text-align: center;
+            font-size: 13px;
+            color: #e0f2fe;
+        }
+        @media (max-width: 700px) {
+            body {
+                padding: 15px;
+            }
+            #holder {
+                width: 100%;
+                padding: 30px 20px;
+            }
+            .cards {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 28px;
+            }
+            .card {
+                min-height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="holder">
+    <div class="header">
+        <div class="weather-logo">
+            ☁️
+        </div>
+        <h1>
+            Weather Dashboard
+        </h1>
+        <p>
+            Get real-time weather information and
+            forecasts for your selected location.
+        </p>
+    </div>
+    <div class="cards">
+        <div class="card">
+            <div>
+                <div class="card-icon current-icon">
+                    🌤️
+                </div>
+                <h2>
+                    Current Weather
+                </h2>
+                <p>
+                    View real-time weather conditions
+                    including temperature, humidity,
+                    wind speed and more.
+                </p>
+            </div>
+            <a
+                href="/climate/"
+                class="button weather-button"
+            >
+                View Current Weather →
+            </a>
+        </div>
+        <div class="card">
+            <div>
+                <div class="card-icon forecast-icon">
+                    📅
+                </div>
+                <h2>
+                    Weather Forecast
+                </h2>
+                <p>
+                    Check upcoming weather conditions
+                    and plan your activities with
+                    detailed forecasts.
+                </p>
+            </div>
+            <a
+                href="/forcast/"
+                class="button forecast-button"
+            >
+                View Weather Forecast →
+            </a>
+        </div>
+    </div>
+    <div class="footer">
+        Accurate weather information to help
+        you plan your day.
+    </div>
+</div>
+</body>
+</html>

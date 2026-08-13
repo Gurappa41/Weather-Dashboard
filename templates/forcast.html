@@ -1,0 +1,845 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--    <style>-->
+<!--        #forecast-container{-->
+<!--    display:flex;-->
+<!--    flex-wrap:wrap;-->
+<!--    gap:15px;-->
+<!--    justify-content:flex-start;-->
+<!--}-->
+<!--.forecast-card{-->
+<!--    width:220px;-->
+<!--    background:white;-->
+<!--    border-radius:12px;-->
+<!--    padding:15px;-->
+<!--    box-shadow:0 4px 10px rgba(0,0,0,0.15);-->
+<!--    text-align:center;-->
+<!--    transition:0.3s;-->
+<!--}-->
+<!--.forecast-card:hover{-->
+<!--    transform:translateY(-5px);-->
+<!--}-->
+<!--.forecast-card img{-->
+<!--    width:70px;-->
+<!--    height:70px;-->
+<!--}-->
+<!--.forecast-card h4{-->
+<!--    margin:8px 0;-->
+<!--    color:#0d6efd;-->
+<!--}-->
+<!--    body{-->
+<!--    background:#eeffe2;-->
+<!--    display:flex;-->
+<!--    flex-direction:row;-->
+<!--    margin:0;-->
+<!--    padding:15px;-->
+<!--    }-->
+<!--    #div1{-->
+<!--    width:30%;-->
+<!--    }-->
+<!--    #div2{-->
+<!--    width:65%;-->
+<!--    height:700px;-->
+<!--    overflow:scroll;-->
+<!--    }-->
+<!--&lt;!&ndash;        #form1{&ndash;&gt;-->
+<!--&lt;!&ndash;    background-color:whitesmoke;&ndash;&gt;-->
+<!--&lt;!&ndash;    height:350px;&ndash;&gt;-->
+<!--&lt;!&ndash;    width:400px;&ndash;&gt;-->
+<!--&lt;!&ndash;    display:flex;&ndash;&gt;-->
+<!--&lt;!&ndash;    border-radius:10px;&ndash;&gt;-->
+<!--&lt;!&ndash;    flex-direction:column;&ndash;&gt;-->
+<!--&lt;!&ndash;    justify-content:center;&ndash;&gt;-->
+<!--&lt;!&ndash;    align-items:center;&ndash;&gt;-->
+<!--&lt;!&ndash;    border:1px solid black;&ndash;&gt;-->
+<!--&lt;!&ndash;    gap:15px;&ndash;&gt;-->
+<!--&lt;!&ndash;    padding:10px;&ndash;&gt;-->
+<!--&lt;!&ndash;    box-sizing:border-box;&ndash;&gt;-->
+<!--&lt;!&ndash;}&ndash;&gt;-->
+<!--#form1{-->
+<!--    background:white;-->
+<!--    height:360px;-->
+<!--    width:400px;-->
+<!--    display:flex;-->
+<!--    flex-direction:column;-->
+<!--    justify-content:center;-->
+<!--    align-items:center;-->
+<!--    border-radius:12px;-->
+<!--    gap:15px;-->
+<!--    padding:15px;-->
+<!--    box-sizing:border-box;-->
+<!--    box-shadow:0px 5px 15px rgba(0,0,0,.2);-->
+<!--}-->
+<!--.form-group{-->
+<!--    display:flex;-->
+<!--    align-items:center;-->
+<!--    width:90%;-->
+<!--}-->
+<!--.form-group label{-->
+<!--    width:80px;-->
+<!--    font-weight:bold;-->
+<!--}-->
+<!--.form-group input{-->
+<!--    flex:1;-->
+<!--    height:30px;-->
+<!--    border-radius:5px;-->
+<!--}-->
+<!--#get{-->
+<!--    width:90px;-->
+<!--    height:35px;-->
+<!--    border:none;-->
+<!--    background:#0d6efd;-->
+<!--    color:white;-->
+<!--    border-radius:6px;-->
+<!--    cursor:pointer;-->
+<!--    font-weight:bold;-->
+<!--}-->
+<!--#get:hover{-->
+<!--    background:#0b5ed7;-->
+<!--}-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div id="div1">-->
+<!--   <form id="form1" action="/details/" method="GET">-->
+<!--    <p style="font-size:20px">Enter the details below to view the weather information.</p>-->
+<!--    <div class="form-group">-->
+<!--        <label for="nation">Nation:</label>-->
+<!--        <input type="text" name="nation" value="{{ form.nation }}" id="nation" placeholder="Enter nation">-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--        <label for="state">State:</label>-->
+<!--        <input type="text" name="state" value="{{ form.state }}" placeholder="Enter state" id="state">-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--        <label for="city">City:</label>-->
+<!--        <input type="text" name="city" value="{{ form.city }}" placeholder="Enter city" id="city">-->
+<!--    </div>-->
+<!--    <input type="submit" value="GET" id="get" >-->
+<!--</form>-->
+<!--</div>-->
+<!--<div id="div2" style="-->
+<!--background:white;-->
+<!--padding:15px;-->
+<!--margin:15px;-->
+<!--border-radius:10px;-->
+<!--box-shadow:0px 4px 10px rgba(0,0,0,.15);-->
+<!--">-->
+<!--    {% if forecast %}-->
+<!--    <h3>Forcast data</h3>-->
+<!--    {% for item in forecast.list %}-->
+<!--&lt;!&ndash;        <div style="border:1px solid black; margin:10px; padding:10px;">&ndash;&gt;-->
+<!--&lt;!&ndash;            <h4>{{ item.dt_txt }}</h4>&ndash;&gt;-->
+<!--&lt;!&ndash;            <p>Temperature: {{ item.main.temp }} °C</p>&ndash;&gt;-->
+<!--&lt;!&ndash;            <p>Description: {{ item.weather.0.description }}</p>&ndash;&gt;-->
+<!--&lt;!&ndash;            <p>Humidity: {{ item.main.humidity }}%</p>&ndash;&gt;-->
+<!--&lt;!&ndash;            <p>Wind: {{ item.wind.speed }} m/s</p>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--    <h4>{{ item.dt_txt }}</h4>-->
+<!--    <img src="https://openweathermap.org/img/wn/{{ item.weather.0.icon }}@2x.png">-->
+<!--    <h2>{{ item.main.temp }}°C</h2>-->
+<!--    <p><b>{{ item.weather.0.description|title }}</b></p>-->
+<!--    <hr>-->
+<!--    <p>💧 Humidity: {{ item.main.humidity }}%</p>-->
+<!--    <p>🌬 Wind: {{ item.wind.speed }} m/s</p>-->
+<!--</div>-->
+<!--    {% endfor %}-->
+<!--{% endif %}-->
+<!--</div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Weather Forecast</title>-->
+<!--    <style>-->
+<!--        *{-->
+<!--            margin:0;-->
+<!--            padding:0;-->
+<!--            box-sizing:border-box;-->
+<!--            font-family:Arial, Helvetica, sans-serif;-->
+<!--        }-->
+<!--        body{-->
+<!--            background:black;-->
+<!--            display:flex;-->
+<!--            padding:20px;-->
+<!--            gap:20px;-->
+<!--        }-->
+<!--        /* Left Panel */-->
+<!--        #div1{-->
+<!--            width:28%;-->
+<!--        }-->
+<!--        #form1{-->
+<!--            background:skyblue;-->
+<!--            padding:25px;-->
+<!--            border-radius:15px;-->
+<!--            box-shadow:0 5px 15px rgba(0,0,0,.15);-->
+<!--        }-->
+<!--        #form1 h2{-->
+<!--            text-align:center;-->
+<!--            color:#0d6efd;-->
+<!--            margin-bottom:15px;-->
+<!--        }-->
+<!--        #form1 p{-->
+<!--            text-align:center;-->
+<!--            margin-bottom:20px;-->
+<!--            color:#555;-->
+<!--        }-->
+<!--        .form-group{-->
+<!--            display:flex;-->
+<!--            flex-direction:column;-->
+<!--            margin-bottom:15px;-->
+<!--        }-->
+<!--        .form-group label{-->
+<!--            font-weight:bold;-->
+<!--            margin-bottom:5px;-->
+<!--        }-->
+<!--        .form-group input{-->
+<!--            padding:10px;-->
+<!--            border:1px solid #ccc;-->
+<!--            border-radius:6px;-->
+<!--            outline:none;-->
+<!--        }-->
+<!--        .form-group input:focus{-->
+<!--            border-color:#0d6efd;-->
+<!--        }-->
+<!--        #get{-->
+<!--            width:100%;-->
+<!--            padding:12px;-->
+<!--            border:none;-->
+<!--            background:#0d6efd;-->
+<!--            color:white;-->
+<!--            font-size:16px;-->
+<!--            border-radius:8px;-->
+<!--            cursor:pointer;-->
+<!--            transition:.3s;-->
+<!--        }-->
+<!--        #get:hover{-->
+<!--            background:#0b5ed7;-->
+<!--        }-->
+<!--        #home{-->
+<!--    display:block;-->
+<!--    margin-top:10px;-->
+<!--    width:100%;-->
+<!--    padding:12px;-->
+<!--    background:#0d6efd;-->
+<!--    color:white;-->
+<!--    text-decoration:none;-->
+<!--    border-radius:8px;-->
+<!--    text-align:center;-->
+<!--    font-size:16px;-->
+<!--    transition:.3s;-->
+<!--}-->
+<!--#home:hover{-->
+<!--    background:#0b5ed7;-->
+<!--}-->
+<!--        /* Right Panel */-->
+<!--        #div2{-->
+<!--            flex:1;-->
+<!--            background:white;-->
+<!--            border-radius:15px;-->
+<!--            padding:20px;-->
+<!--            box-shadow:0 5px 15px rgba(0,0,0,.15);-->
+<!--            height:90vh;-->
+<!--            overflow-y:auto;-->
+<!--        }-->
+<!--        #div2 h2{-->
+<!--            text-align:center;-->
+<!--            color:#0d6efd;-->
+<!--            margin-bottom:20px;-->
+<!--        }-->
+<!--        /* Forecast Cards */-->
+<!--        #forecast-container{-->
+<!--            display:flex;-->
+<!--            flex-wrap:wrap;-->
+<!--            justify-content:center;-->
+<!--            gap:20px;-->
+<!--        }-->
+<!--        .forecast-card{-->
+<!--            width:220px;-->
+<!--            background:#f8fbff;-->
+<!--            border-radius:12px;-->
+<!--            padding:15px;-->
+<!--            text-align:center;-->
+<!--            box-shadow:0 4px 10px rgba(0,0,0,.12);-->
+<!--            transition:.3s;-->
+<!--        }-->
+<!--        .forecast-card:hover{-->
+<!--            transform:translateY(-6px);-->
+<!--        }-->
+<!--        .forecast-card img{-->
+<!--            width:80px;-->
+<!--            height:80px;-->
+<!--        }-->
+<!--        .forecast-card h3{-->
+<!--            color:#0d6efd;-->
+<!--            margin:10px 0;-->
+<!--        }-->
+<!--        .forecast-card h4{-->
+<!--            color:#444;-->
+<!--            font-size:15px;-->
+<!--            margin-bottom:10px;-->
+<!--        }-->
+<!--        .forecast-card hr{-->
+<!--            margin:12px 0;-->
+<!--            border:none;-->
+<!--            border-top:1px solid #ddd;-->
+<!--        }-->
+<!--        .forecast-card p{-->
+<!--            margin:8px 0;-->
+<!--            color:#444;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div id="div1">-->
+<!--<form id="form1" action="/details/" method="GET">-->
+<!--    <h2>🌦 Forecast</h2>-->
+<!--    <p>Enter a city to view the 5-day weather forecast.</p>-->
+<!--    <div class="form-group">-->
+<!--        <label>Nation</label>-->
+<!--        <input type="text"-->
+<!--               name="nation"-->
+<!--               value="{{ form.nation }}"-->
+<!--               placeholder="Enter nation">-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--        <label>State</label>-->
+<!--        <input type="text"-->
+<!--               name="state"-->
+<!--               value="{{ form.state }}"-->
+<!--               placeholder="Enter state">-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--        <label>City</label>-->
+<!--        <input type="text"-->
+<!--               name="city"-->
+<!--               value="{{ form.city }}"-->
+<!--               placeholder="Enter city">-->
+<!--    </div>-->
+<!--    <input type="submit" value="Get Forecast" id="get">-->
+<!--    <a href="/home/" id="home">Home</a>-->
+<!--</form>-->
+<!--&lt;!&ndash;    <button id="home" onclick="window.location.href='/home/'">&ndash;&gt;-->
+<!--&lt;!&ndash;    Home&ndash;&gt;-->
+<!--&lt;!&ndash;   </button>&ndash;&gt;-->
+<!--</div>-->
+<!--<div id="div2">-->
+<!--{% if forecast %}-->
+<!--<h2>📅 5-Day Weather Forecast of {{city}}</h2>-->
+<!--<div id="forecast-container">-->
+<!--{% for item in forecast.list %}-->
+<!--<div class="forecast-card">-->
+<!--       <h4>{{ item.dt_txt }}</h4>-->
+<!--<img src="https://openweathermap.org/img/wn/{{ item.weather.0.icon }}@2x.png">-->
+<!--  <h2>{{ item.main.temp }}°C</h2>-->
+<!--  <p><b>{{ item.weather.0.description|title }}</b></p>-->
+<!--   <hr>&ndash;&gt;-->
+<!--  <p>💧 Humidity: {{ item.main.humidity }}%</p>-->
+<!--<p>🌬 Wind: {{ item.wind.speed }} m/s</p>-->
+<!--</div>-->
+<!--{% endfor %}-->
+<!--</div>-->
+<!--{% else %}-->
+<!--<h2 style="margin-top:200px;color:gray;">-->
+<!--Search a city to view the weather forecast.-->
+<!--</h2>-->
+<!--{% endif %}-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+        body {
+            min-height: 100vh;
+            padding: 18px;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(30, 64, 175, 0.82),
+                    rgba(14, 165, 233, 0.65)
+                ),
+                url("{% static 'images/back_clouds.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .weather-app {
+            width: 100%;
+            max-width: 1120px;
+            height: calc(100vh - 36px);
+            margin: auto;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            background: #f8fafc;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow:
+                0 18px 45px rgba(0, 0, 0, 0.22);
+        }
+        .sidebar {
+            padding: 24px 20px;
+            background:
+                linear-gradient(
+                    160deg,
+                    #123f6b,
+                    #0879ad
+                );
+            color: white;
+        }
+        .weather-logo {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            border-radius: 14px;
+            background:
+                rgba(255, 255, 255, 0.14);
+            font-size: 27px;
+        }
+        .sidebar h1 {
+            font-size: 23px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .sidebar-description {
+            color: #dbeafe;
+            font-size: 12px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+        .search-heading {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #dbeafe;
+            margin-bottom: 13px;
+        }
+        .form-group {
+            margin-bottom: 12px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #e0f2fe;
+        }
+        .form-group input {
+            width: 100%;
+            height: 38px;
+            padding: 0 10px;
+            border: none;
+            border-radius: 7px;
+            outline: none;
+            background: white;
+            color: #172033;
+            font-size: 12px;
+        }
+        .form-group input::placeholder {
+            color: #94a3b8;
+        }
+        .form-group input:focus {
+            box-shadow:
+                0 0 0 3px
+                rgba(125, 211, 252, 0.35);
+        }
+        #get {
+            width: 100%;
+            height: 40px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 7px;
+            background: #38bdf8;
+            color: #082f49;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        #get:hover {
+            background: #7dd3fc;
+            transform: translateY(-1px);
+        }
+        #home {
+            display: block;
+            width: 100%;
+            margin-top: 9px;
+            padding: 9px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            border:
+                1px solid rgba(255,255,255,0.3);
+            border-radius: 7px;
+            font-size: 12px;
+            transition: 0.2s;
+        }
+        #home:hover {
+            background:
+                rgba(255,255,255,0.1);
+        }
+        .content {
+            padding: 24px;
+            overflow-y: auto;
+        }
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            margin-bottom: 18px;
+            border-bottom:
+                1px solid #e2e8f0;
+        }
+        .content-header h2 {
+            color: #172033;
+            font-size: 22px;
+            font-weight: 600;
+        }
+        .content-header p {
+            margin-top: 4px;
+            color: #64748b;
+            font-size: 12px;
+        }
+        .forecast-badge {
+            padding: 6px 11px;
+            border-radius: 20px;
+            background: #dbeafe;
+            color: #1d4ed8;
+            font-size: 9px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .forecast-container {
+            display: grid;
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(160px, 1fr)
+                );
+            gap: 12px;
+        }
+        .forecast-card {
+            position: relative;
+            min-height: 235px;
+            padding: 15px;
+            background: white;
+            border:
+                1px solid #e2e8f0;
+            border-radius: 13px;
+            text-align: center;
+            overflow: hidden;
+            transition:
+                transform 0.2s,
+                box-shadow 0.2s;
+        }
+        .forecast-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background:
+                linear-gradient(
+                    90deg,
+                    #38bdf8,
+                    #2563eb
+                );
+        }
+        .forecast-card:hover {
+            transform: translateY(-4px);
+            box-shadow:
+                0 8px 20px
+                rgba(37, 99, 235, 0.10);
+        }
+        .forecast-date {
+            margin-bottom: 5px;
+            color: #64748b;
+            font-size: 10px;
+            font-weight: 600;
+        }
+        .forecast-icon {
+            width: 65px;
+            height: 65px;
+            margin: 2px auto;
+            object-fit: contain;
+        }
+        .temperature {
+            color: #172033;
+            font-size: 25px;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+        .description {
+            margin-top: 3px;
+            color: #2563eb;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .forecast-card hr {
+            border: none;
+            border-top:
+                1px solid #e5e7eb;
+            margin: 10px 0;
+        }
+        .weather-detail {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 0;
+            color: #64748b;
+            font-size: 10px;
+        }
+        .weather-detail strong {
+            color: #334155;
+            font-weight: 600;
+        }
+        .empty-state {
+            height: 100%;
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .empty-icon {
+            width: 75px;
+            height: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            border-radius: 20px;
+            background: #e0f2fe;
+            font-size: 38px;
+        }
+        .empty-state h2 {
+            color: #334155;
+            font-size: 19px;
+            margin-bottom: 5px;
+        }
+        .empty-state p {
+            color: #94a3b8;
+            font-size: 12px;
+        }
+        .content::-webkit-scrollbar {
+            width: 5px;
+        }
+        .content::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .content::-webkit-scrollbar-thumb {
+            background: #bfdbfe;
+            border-radius: 10px;
+        }
+        @media (max-width: 850px) {
+            body {
+                padding: 12px;
+            }
+            .weather-app {
+                height: auto;
+                min-height:
+                    calc(100vh - 24px);
+                grid-template-columns:
+                    220px 1fr;
+            }
+            .content {
+                padding: 18px;
+            }
+        }
+        @media (max-width: 680px) {
+            body {
+                padding: 10px;
+            }
+            .weather-app {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            .sidebar {
+                padding: 22px;
+            }
+            .content {
+                min-height: 500px;
+                overflow: visible;
+            }
+            .content-header {
+                display: block;
+            }
+            .forecast-badge {
+                display: inline-block;
+                margin-top: 9px;
+            }
+            .forecast-container {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 400px) {
+            .forecast-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="weather-app">
+    <aside class="sidebar">
+        <div class="weather-logo">
+            🌦️
+        </div>
+        <h1>
+            Weather Forecast
+        </h1>
+        <p class="sidebar-description">
+            Check the upcoming weather
+            conditions for your location.
+        </p>
+        <div class="search-heading">
+            SEARCH LOCATION
+        </div>
+        <form
+            action="/details/"
+            method="GET"
+        >
+            <div class="form-group">
+                <label for="nation">
+                    Nation
+                </label>
+                <input
+                    type="text"
+                    id="nation"
+                    name="nation"
+                    value="{{ form.nation }}"
+                    placeholder="Enter nation"
+                >
+            </div>
+            <div class="form-group">
+                <label for="state">
+                    State
+                </label>
+                <input
+                    type="text"
+                    id="state"
+                    name="state"
+                    value="{{ form.state }}"
+                    placeholder="Enter state"
+                >
+            </div>
+            <div class="form-group">
+                <label for="city">
+                    City
+                </label>
+                <input
+                    type="text"
+                    id="city"
+                    name="city"
+                    value="{{ form.city }}"
+                    placeholder="Enter city"
+                >
+            </div>
+            <input
+                type="submit"
+                value="Get Forecast"
+                id="get"
+            >
+        </form>
+        <a
+            href="/home/"
+            id="home">
+            ← Home
+        </a>
+    </aside>
+    <main class="content">
+        {% if forecast %}
+        <div class="content-header">
+            <div>
+                <h2>
+                    5-Day Weather Forecast
+                </h2>
+                <p>
+                    Forecast for {{ city }}
+                </p>
+            </div>
+            <div class="forecast-badge">
+                WEATHER FORECAST
+            </div>
+        </div>
+        <div class="forecast-container">
+            {% for item in forecast.list %}
+            <div class="forecast-card">
+                <div class="forecast-date">
+                    {{ item.dt_txt }}
+                </div>
+                <img
+                    class="forecast-icon"
+                    src="https://openweathermap.org/img/wn/{{ item.weather.0.icon }}@2x.png"
+                    alt="{{ item.weather.0.description }}"
+                >
+                <div class="temperature">
+                    {{ item.main.temp }}°C
+                </div>
+                <div class="description">
+                    {{ item.weather.0.description|title }}
+                </div>
+                <hr>
+                <div class="weather-detail">
+                    <span>
+                        💧 Humidity
+                    </span>
+                    <strong>
+                        {{ item.main.humidity }}%
+                    </strong>
+                </div>
+                <div class="weather-detail">
+                    <span>
+                        🌬 Wind
+                    </span>
+                    <strong>
+                        {{ item.wind.speed }} m/s
+                    </strong>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <div class="empty-icon">
+                🌤️
+            </div>
+            <h2>
+                View Weather Forecast
+            </h2>
+            <p>
+                Enter a location to see the
+                upcoming weather conditions.
+            </p>
+        </div>
+        {% endif %}
+    </main>
+</div>
+</body>
+</html>
